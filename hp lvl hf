@@ -1,0 +1,289 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HP LVL Team Web</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            text-align: center;
+            margin: 0;
+            padding: 0;
+            color: white;
+            background: linear-gradient(to right, #001F3F, #005F7F);
+            height: 100vh;
+            overflow: hidden;
+        }
+        .header {
+            font-size: 64px;
+            font-weight: bold;
+            color: red;
+            white-space: nowrap;
+            overflow: hidden;
+            width: 0;
+            animation: typing 6s steps(10, end) forwards, glow 1s infinite alternate;
+        }
+        .get-info {
+            margin-top: 20px;
+        }
+        .download-button {
+            display: inline-block;
+            background-color: #008CBA;
+            color: white;
+            padding: 15px 30px;
+            font-size: 20px;
+            text-align: center;
+            text-decoration: none;
+            border-radius: 10px;
+            box-shadow: 0 4px #005f73;
+            transition: all 0.3s ease-in-out;
+            font-weight: bold;
+        }
+        .download-button:hover {
+            background-color: #005f73;
+            box-shadow: 0 6px #00394d;
+            transform: translateY(-2px);
+        }
+        .admin-button {
+            margin-top: 20px;
+            background-color: #ff4500;
+            border: none;
+            color: white;
+            padding: 15px 30px;
+            font-size: 24px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        .admin-button:hover {
+            background-color: #ff0000;
+        }
+        @keyframes typing {
+            from { width: 0; }
+            to { width: 100%; }
+        }
+        @keyframes glow {
+            0% { text-shadow: 0 0 5px red, 0 0 10px red; }
+            100% { text-shadow: 0 0 20px red, 0 0 30px red; }
+        }
+        .telegram-button {
+            margin: 20px 10px;
+            background-color: #0088cc;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 18px;
+            transition: background-color 0.3s;
+        }
+        .telegram-button:hover {
+            background-color: #005f99;
+        }
+        .team-list {
+            display: none;
+            list-style: none;
+            padding: 0;
+            color: #ff4500;
+        }
+        .team-list li {
+            margin: 10px 0;
+        }
+        .view-profile-button {
+            background-color: #008CBA;
+            border: none;
+            color: white;
+            padding: 5px 10px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        .view-profile-button:hover {
+            background-color: #005f73;
+        }
+    </style>
+    <script>
+        function toggleTeamList() {
+            const teamList = document.querySelector('.team-list');
+            if (teamList.style.display === "none" || teamList.style.display === "") {
+                teamList.style.display = "block";
+            } else {
+                teamList.style.display = "none";
+            }
+        }
+
+        document.onkeydown = function(e) {
+            if (e.key === 'F12') {
+                alert("F12 is disabled");
+                return false;
+            }
+        };
+        document.oncontextmenu = function() {
+            alert("Right-click is disabled");
+            return false;
+        };
+
+        function setCookie(cname, cvalue, exdays) {
+            const d = new Date();
+            d.setTime(d.getTime() + (exdays * 24 * 60 * 60 * 1000));
+            let expires = "expires=" + d.toUTCString();
+            document.cookie = cname + "=" + cvalue + ";" + expires + ";path=/";
+        }
+
+        function getCookie(cname) {
+            const name = cname + "=";
+            const decodedCookie = decodeURIComponent(document.cookie);
+            const ca = decodedCookie.split(';');
+            for (let i = 0; i < ca.length; i++) {
+                let c = ca[i];
+                while (c.charAt(0) == ' ') {
+                    c = c.substring(1);
+                }
+                if (c.indexOf(name) == 0) {
+                    return c.substring(name.length, c.length);
+                }
+            }
+            return "";
+        }
+
+        function checkCookie() {
+            let user = getCookie("username");
+            if (user != "") {
+                alert("Welcome back, " + user);
+            } else {
+                user = prompt("Please enter your username:");
+                if (user != "" && user != null) {
+                    setCookie("username", user, 365);
+                }
+            }
+        }
+
+        window.onload = function() {
+            checkCookie();
+            addDynamicText();
+        };
+
+        function addDynamicText() {
+            const header = document.querySelector('.header');
+            setTimeout(() => {
+                header.style.width = '100%';
+            }, 3000);
+        }
+
+        function bounceDownloadButton() {
+            const button = document.querySelector('.download-button');
+            setInterval(() => {
+                button.style.transform = 'translateY(-10px)';
+                setTimeout(() => {
+                    button.style.transform = 'translateY(0)';
+                }, 500);
+            }, 2000);
+        }
+
+        window.onload = function() {
+            checkCookie();
+            bounceDownloadButton();
+        };
+
+        function createFloatingText(text) {
+            const newText = document.createElement("div");
+            newText.innerText = text;
+            newText.style.position = "absolute";
+            newText.style.left = Math.random() * window.innerWidth + "px";
+            newText.style.top = Math.random() * window.innerHeight + "px";
+            newText.style.color = "#00FF00";
+            newText.style.fontSize = "24px";
+            newText.style.animation = "float 5s infinite";
+            document.body.appendChild(newText);
+        }
+
+        setInterval(() => {
+            createFloatingText("C4 Team!");
+        }, 1000);
+
+        function showAlertWithDelay() {
+            setTimeout(() => {
+                alert("Thanks for visiting C4 Team Web!");
+            }, 5000);
+        }
+
+        function randomBackgroundColor() {
+            setInterval(() => {
+                document.body.style.backgroundColor = '#' + Math.floor(Math.random() * 16777215).toString(16);
+            }, 3000);
+        }
+
+        function floatingButton() {
+            const button = document.createElement('div');
+            button.innerHTML = "Hover Me!";
+            button.style.position = 'absolute';
+            button.style.left = Math.random() * window.innerWidth + "px";
+            button.style.top = Math.random() * window.innerHeight + "px";
+            button.style.background = 'red';
+            button.style.padding = '20px';
+            button.style.color = 'white';
+            button.style.borderRadius = '10px';
+            document.body.appendChild(button);
+            
+            setInterval(() => {
+                button.style.left = Math.random() * window.innerWidth + "px";
+                button.style.top = Math.random() * window.innerHeight + "px";
+            }, 2000);
+        }
+
+        floatingButton();
+
+        function autoText() {
+            let text = "HP LVL Team rocks!";
+            let index = 0;
+            let typingElement = document.createElement('h2');
+            typingElement.style.color = 'yellow';
+            typingElement.style.fontSize = '30px';
+            typingElement.style.position = 'fixed';
+            typingElement.style.bottom = '10px';
+            typingElement.style.left = '10px';
+            document.body.appendChild(typingElement);
+
+            setInterval(() => {
+                if (index < text.length) {
+                    typingElement.textContent += text[index];
+                    index++;
+                } else {
+                    typingElement.textContent = '';
+                    index = 0;
+                }
+            }, 300);
+        }
+
+        autoText();
+    </script>
+</head>
+<body>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-8">
+                <h1 class="header">HP L Team Web</h1>
+                <div class="get-info">
+                    <a href="path/to/your/program.exe" class="download-button">Download the bot</a>
+                </div>
+                <button class="admin-button" onclick="toggleTeamList()">Toggle Members List</button>
+                <ul class="team-list">
+                    <li>3SKER <button class="view-profile-button" onclick="window.open('https://t.me/@MR3SKR', '_blank')">View Profile</button></li>
+                    <li>FOX <button class="view-profile-button" onclick="window.open('https://t.me/@S_DD_F', '_blank')">View Profile</button></li>
+                    <li>HP LVL <button class="view-profile-button" onclick="window.open('https://t.me/@xmod_yt', '_blank')">View Profile</button></li>
+                    <li>TELE <button class="view-profile-button" onclick="window.open('https://t.me/HPLIKEOPML', '_blank')">View Profile</button></li>
+                    <li>tele <button class="view-profile-button" onclick="window.open('https://t.me/H_0_A_7_3', '_blank')">View Profile</button></li>
+                </ul>
+                <div class="telegram-buttons">
+                    <button class="telegram-button" onclick="window.open('https://t.me/H_0_A_7_3')">Join Group 1</button>
+                    <button class="telegram-button" onclick="window.open('https://t.me/HPLIKEOPML', '_blank')">Join Group 2</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
